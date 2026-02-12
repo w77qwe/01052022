@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRALYS — Mobile Producer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue-50: #eff6ff;
+            --blue-100: #dbeafe;
+            --blue-200: #bfdbfe;
+            --blue-300: #93c5fd;
+            --blue-400: #60a5fa;
+            --blue-500: #3b82f6;
+            --blue-600: #2563eb;
+            --blue-700: #1d4ed8;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-shadow: rgba(59, 130, 246, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background: #030712;
+            color: #e2e8f0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* === ANIMATED BACKGROUND === */
+        .bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: orbFloat 20s ease-in-out infinite;
+        }
+
+        .bg-orb:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--blue-600), transparent 70%);
+            top: -10%;
+            left: -10%;
+            animation-duration: 25s;
+        }
+
+        .bg-orb:nth-child(2) {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #6366f1, transparent 70%);
+            top: 40%;
+            right: -15%;
+            animation-duration: 30s;
+            animation-delay: -5s;
+        }
+
+        .bg-orb:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #0ea5e9, transparent 70%);
+            bottom: -5%;
+            left: 20%;
+            animation-duration: 22s;
+            animation-delay: -10s;
+        }
+
+        .bg-orb:nth-child(4) {
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, var(--blue-400), transparent 70%);
+            top: 25%;
+            left: 50%;
+            animation-duration: 18s;
+            animation-delay: -7s;
+            opacity: 0.25;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(60px, -40px) scale(1.1); }
+            50% { transform: translate(-30px, 60px) scale(0.95); }
+            75% { transform: translate(40px, 30px) scale(1.05); }
+        }
+
+        /* Subtle grid overlay */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background-image: 
+                linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        /* === MAIN CONTENT === */
+        .main-content {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 24px 20px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+        }
+
+        /* === GLASS MIXIN === */
+        .glass {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.04) 50%,
+                rgba(255, 255, 255, 0.08) 100%
+            );
+            backdrop-filter: blur(20px) saturate(1.4);
+            -webkit-backdrop-filter: blur(20px) saturate(1.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 0 0.5px rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-subtle {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.06) 0%,
+                rgba(255, 255, 255, 0.02) 100%
+            );
+            backdrop-filter: blur(16px) saturate(1.3);
+            -webkit-backdrop-filter: blur(16px) saturate(1.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        }
+
+        /* Liquid shine effect on glass */
+        .glass::before,
+        .glass-subtle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.04),
+                transparent
+            );
+            transition: left 0.8s ease;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+
+        .glass:hover::before,
+        .glass-subtle:hover::before {
+            left: 100%;
+        }
+
+        /* === HERO SECTION === */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 40px;
+            gap: 20px;
+            width: 100%;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 130px;
+            height: 130px;
+        }
+
+        .avatar-glow {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                var(--blue-500),
+                #6366f1,
+                #0ea5e9,
+                var(--blue-400),
+                var(--blue-500)
+            );
+            animation: rotateGlow 6s linear infinite;
+            opacity: 0.7;
+            filter: blur(4px);
+        }
+
+        @keyframes rotateGlow {
+            to { transform: rotate(360deg); }
+        }
+
+        .avatar {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue-700), #4f46e5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--blue-200);
+            z-index: 1;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+            overflow: hidden;
+        }
+
+        .avatar-inner-glow {
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.2), transparent 60%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .hero-text {
+            text-align: center;
+        }
+
+        .artist-name {
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: 6px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--blue-300) 50%, var(--blue-400) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 0.82rem;
+            font-weight: 400;
+            color: var(--blue-300);
+            opacity: 0.8;
+            letter-spacing: 0.5px;
+            line-height: 1.5;
+        }
+
+        /* === STATUS BADGE === */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(59, 130, 246, 0.12);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--blue-300);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 8px #22c55e;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.85); }
+        }
+
+        /* === LATEST DROP CARD === */
+        .latest-drop {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            padding: 28px 24px;
+            animation: fadeInUp 1s ease-out 0.15s both;
+        }
+
+        .drop-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--blue-400);
+            margin-bottom: 14px;
+        }
+
+        .drop-label i {
+            font-size: 0.6rem;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .drop-content {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .drop-artwork {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #1e3a5f, #0f172a, #312e81);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .drop-artwork::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 25%, rgba(96, 165, 250, 0.3), transparent 60%);
+        }
+
+        .drop-artwork i {
+            font-size: 28px;
+            color: var(--blue-300);
+            z-index: 1;
+        }
+
+        .drop-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .drop-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .drop-meta {
+            font-size: 0.75rem;
+            color: var(--blue-300);
+            opacity: 0.7;
+        }
+
+        .listen-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            width: 100%;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--blue-600), var(--blue-500));
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 
+                0 4px 20px rgba(59, 130, 246, 0.35),
+                0 0 40px rgba(59, 130, 246, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        .listen-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .listen-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 
+                0 8px 30px rgba(59, 130, 246, 0.5),
+                0 0 60px rgba(59, 130, 246, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .listen-btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .listen-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .listen-btn .btn-glow {
+            position: absolute;
+            inset: -2px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--blue-500), #6366f1, var(--blue-400));
+            z-index: -1;
+            filter: blur(12px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .listen-btn:hover .btn-glow {
+            opacity: 0.5;
+        }
+
+        /* === LINKS SECTION === */
+        .links-section {
+            width: 100%;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .section-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--blue-400);
+            opacity: 0.7;
+            margin-bottom: 14px;
+            padding-left: 4px;
+        }
+
+        .links-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .link-btn {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            text-decoration: none;
+            color: #e2e8f0;
+            transition: transform 0.25s ease, border-color 0.3s ease;
+        }
+
+        .link-btn:hover {
+            transform: translateY(-2px) scale(1.015);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .link-btn:active {
+            transform: scale(0.98);
+        }
+
+        .link-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .link-btn:hover .link-icon {
+            transform: scale(1.1);
+        }
+
+        .link-icon.spotify {
+            background: linear-gradient(135deg, rgba(30, 215, 96, 0.2), rgba(30, 215, 96, 0.05));
+            color: #1DB954;
+            border: 1px solid rgba(30, 215, 96, 0.2);
+        }
+
+        .link-icon.tiktok {
+            background: linear-gradient(135deg, rgba(255, 0, 80, 0.15), rgba(0, 242, 234, 0.1));
+            color: #ff0050;
+            border: 1px solid rgba(255, 0, 80, 0.2);
+        }
+
+        .link-icon.youtube {
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.05));
+            color: #FF0000;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .link-icon.soundcloud {
+            background: linear-gradient(135deg, rgba(255, 136, 0, 0.2), rgba(255, 136, 0, 0.05));
+            color: #ff8800;
+            border: 1px solid rgba(255, 136, 0, 0.2);
+        }
+
+        .link-text {
+            flex: 1;
+        }
+
+        .link-name {
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .link-handle {
+            font-size: 0.72rem;
+            color: var(--blue-300);
+            opacity: 0.6;
+            margin-top: 2px;
+        }
+
+        .link-arrow {
+            font-size: 0.8rem;
+            color: var(--blue-400);
+            opacity: 0.4;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .link-btn:hover .link-arrow {
+            opacity: 1;
+            transform: translateX(3px);
+        }
+
+        /* === ABOUT SECTION === */
+        .about-section {
+            width: 100%;
+            padding: 28px 24px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out 0.45s both;
+        }
+
+        .about-section .section-label {
+            margin-bottom: 16px;
+            padding-left: 0;
+        }
+
+        .about-text {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--blue-200);
+            font-weight: 300;
+            opacity: 0.85;
+        }
+
+        .about-emoji {
+            display: block;
+            font-size: 1.8rem;
+            margin-bottom: 14px;
+        }
+
+        .about-stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 22px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            background: linear-gradient(135deg, #fff, var(--blue-300));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--blue-400);
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* === FOOTER === */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.7rem;
+            color: var(--blue-400);
+            opacity: 0.4;
+            letter-spacing: 0.5px;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* === FLOATING PARTICLES === */
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--blue-400);
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0);
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20vh) scale(1);
+            }
+        }
+
+        /* === SCROLLBAR === */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+        }
+
+        /* === RESPONSIVE === */
+        @media (min-width: 640px) {
+            .main-content {
+                padding-top: 60px;
+                gap: 36px;
+            }
+
+            .artist-name {
+                font-size: 3.4rem;
+                letter-spacing: 8px;
+            }
+
+            .avatar-wrapper {
+                width: 150px;
+                height: 150px;
+            }
+
+            .avatar {
+                width: 150px;
+                height: 150px;
+                font-size: 56px;
+            }
+        }
+
+        /* === Ripple on tap === */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(0);
+            animation: rippleAnim 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes rippleAnim {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animated Background -->
+    <div class="bg-canvas">
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+        <div class="bg-orb"></div>
+    </div>
+    <div class="bg-grid"></div>
+
+    <!-- Floating Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span>Currently Creating</span>
+            </div>
+
+            <div class="avatar-wrapper">
+                <div class="avatar-glow"></div>
+                <div class="avatar">
+                    M
+                    <div class="avatar-inner-glow"></div>
+                </div>
+            </div>
+
+            <div class="hero-text">
+                <h1 class="artist-name">MIRALYS</h1>
+                <p class="subtitle">Mobile Producer · Experimental · 7 Years in the Making</p>
+            </div>
+        </section>
+
+        <!-- Latest Drop Card -->
+        <section class="latest-drop glass">
+            <div class="drop-label">
+                <i class="fas fa-circle"></i>
+                <span>Latest Drop</span>
+            </div>
+            <div class="drop-content">
+                <div class="drop-artwork">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="drop-info">
+                    <div class="drop-title">CRASHED OUT!</div>
+                    <div class="drop-meta">Single · 2025 · Experimental</div>
+                </div>
+            </div>
+            <a href="#" class="listen-btn" onclick="return false;">
+                <span class="btn-glow"></span>
+                <i class="fas fa-play"></i>
+                <span>Listen Now</span>
+            </a>
+        </section>
+
+        <!-- Links Section -->
+        <section class="links-section">
+            <p class="section-label">The Stack</p>
+            <div class="links-stack">
+                <a href="#" class="link-btn glass-subtle" onclick="return false;">
+                    <div class="link-icon spotify">
+                        <i class="fab fa-spotify"></i>
+                    </div>
+                    <div class="link-text">
+                        <div class="link-name">Spotify</div>
+                        <div class="link-handle">Stream all tracks</div>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+                <a href="#" class="link-btn glass-subtle" onclick="return false;">
+                    <div class="link-icon tiktok">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <div class="link-text">
+                        <div class="link-name">TikTok</div>
+                        <div class="link-handle">Behind the chaos</div>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+                <a href="#" class="link-btn glass-subtle" onclick="return false;">
+                    <div class="link-icon youtube">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="link-text">
+                        <div class="link-name">YouTube</div>
+                        <div class="link-handle">Visuals & process</div>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+                <a href="#" class="link-btn glass-subtle" onclick="return false;">
+                    <div class="link-icon soundcloud">
+                        <i class="fab fa-soundcloud"></i>
+                    </div>
+                    <div class="link-text">
+                        <div class="link-name">SoundCloud</div>
+                        <div class="link-handle">Unreleased & demos</div>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section glass">
+            <p class="section-label">About</p>
+            <span class="about-emoji">📱</span>
+            <p class="about-text">
+                Creating viral sounds entirely on a smartphone. No studio, just pure chaos.
+            </p>
+            <div class="about-stats">
+                <div class="stat">
+                    <div class="stat-value">7+</div>
+                    <div class="stat-label">Years</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Mobile</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">∞</div>
+                    <div class="stat-label">Chaos</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            © 2026 Miralys. All rights reserved.
+        </footer>
+
+    </main>
+
+    <script>
+        // === Floating Particles ===
+        (function createParticles() {
+            const container = document.getElementById('particles');
+            const count = 20;
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = particle.style.height = (Math.random() * 3 + 1.5) + 'px';
+                particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 15) + 's';
+                particle.style.opacity = 0;
+                container.appendChild(particle);
+            }
+        })();
+
+        // === Ripple Effect on Interactive Elements ===
+        document.querySelectorAll('.link-btn, .listen-btn').forEach(el => {
+            el.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+                this.appendChild(ripple);
+                ripple.addEventListener('animationend', () => ripple.remove());
+            });
+        });
+
+        // === Subtle Parallax on Scroll ===
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    const scrollY = window.scrollY;
+                    const orbs = document.querySelectorAll('.bg-orb');
+                    orbs.forEach((orb, i) => {
+                        const speed = (i + 1) * 0.03;
+                        orb.style.transform = `translateY(${scrollY * speed}px)`;
+                    });
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // === Intersection Observer for Scroll Animations ===
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -30px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe sections
+        document.querySelectorAll('.hero, .latest-drop, .links-section, .about-section, .footer').forEach(section => {
+            observer.observe(section);
+        });
+
+        // === Hover tilt effect for cards (desktop only) ===
+        if (window.matchMedia('(hover: hover)').matches) {
+            document.querySelectorAll('.glass').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -4;
+                    const rotateY = ((x - centerX) / centerX) * 4;
+                    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+                    card.style.transition = 'transform 0.1s ease-out';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
+                    card.style.transition = 'transform 0.4s ease-out';
+                });
+            });
+        }
+    </script>
+
+</body>
+</html>
