@@ -631,6 +631,210 @@
             margin-top: 4px;
         }
 
+        /* === CONTACT & FAQ SECTION === */
+        .contact-faq-section {
+            width: 100%;
+            padding: 28px 24px;
+            animation: fadeInUp 1s ease-out 0.55s both;
+        }
+
+        .contact-faq-section .section-label {
+            margin-bottom: 20px;
+            padding-left: 0;
+            text-align: center;
+        }
+
+        /* Contact Button */
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 16px 28px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #6366f1, var(--blue-500));
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 
+                0 4px 20px rgba(99, 102, 241, 0.35),
+                0 0 40px rgba(99, 102, 241, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            margin-bottom: 24px;
+        }
+
+        .contact-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 
+                0 8px 30px rgba(99, 102, 241, 0.5),
+                0 0 60px rgba(99, 102, 241, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .contact-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .contact-btn .btn-glow {
+            position: absolute;
+            inset: -2px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #6366f1, var(--blue-400), #6366f1);
+            z-index: -1;
+            filter: blur(12px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-btn:hover .btn-glow {
+            opacity: 0.5;
+        }
+
+        .contact-btn .contact-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-btn:hover .contact-icon {
+            transform: scale(1.15);
+        }
+
+        /* FAQ Divider */
+        .faq-divider {
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            margin: 0 auto 22px;
+        }
+
+        .faq-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--blue-400);
+            opacity: 0.6;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        /* Accordion */
+        .faq-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .faq-item {
+            border-radius: 16px;
+            overflow: hidden;
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.06) 0%,
+                rgba(255, 255, 255, 0.02) 100%
+            );
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .faq-item.active {
+            border-color: rgba(99, 102, 241, 0.35);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.1);
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 16px 20px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .faq-q-text {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .faq-toggle-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            color: var(--blue-300);
+            font-size: 0.7rem;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle-icon {
+            transform: rotate(45deg);
+            background: rgba(99, 102, 241, 0.3);
+        }
+
+        .faq-answer-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item.active .faq-answer-wrapper {
+            max-height: 200px;
+        }
+
+        .faq-answer {
+            padding: 0 20px 18px;
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: var(--blue-200);
+            font-weight: 300;
+            opacity: 0.8;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 14px;
+            margin-top: 0;
+        }
+
         /* === FOOTER === */
         .footer {
             text-align: center;
@@ -639,7 +843,7 @@
             color: var(--blue-400);
             opacity: 0.4;
             letter-spacing: 0.5px;
-            animation: fadeInUp 1s ease-out 0.6s both;
+            animation: fadeInUp 1s ease-out 0.7s both;
         }
 
         /* === ANIMATIONS === */
@@ -790,68 +994,68 @@
             </div>
             <div class="drop-content">
                 <div class="drop-artwork">
-    <img src="cover.jpg" style="width:100%; height:100%; object-fit:cover;" alt="Cover">
-</div>
+                    <img src="cover.jpg" style="width:100%; height:100%; object-fit:cover;" alt="Cover">
+                </div>
                 <div class="drop-info">
                     <div class="drop-title">CRASHED OUT!</div>
                     <div class="drop-meta">Single · 2026 · Experimental</div>
                 </div>
             </div>
             <a href="https://band.link/HdDx3" class="listen-btn">
-    <span class="btn-glow"></span>
-    <i class="fas fa-play"></i>
-    <span>Listen Now</span>
-</a>
+                <span class="btn-glow"></span>
+                <i class="fas fa-play"></i>
+                <span>Listen Now</span>
+            </a>
         </section>
 
         <!-- Links Section -->
         <section class="links-section">
             <p class="section-label">The Stack</p>
             <div class="links-stack">
-    <a href="https://open.spotify.com/artist/3F5QlTJovNbiSNYMq31ZaJ?si=syacyK_YRjqJajaCcXegyw" class="link-btn glass-subtle">
-        <div class="link-icon spotify">
-            <i class="fab fa-spotify"></i>
-        </div>
-        <div class="link-text">
-            <div class="link-name">Spotify</div>
-            <div class="link-handle">Stream all tracks</div>
-        </div>
-        <i class="fas fa-arrow-right link-arrow"></i>
-    </a>
+                <a href="https://open.spotify.com/artist/3F5QlTJovNbiSNYMq31ZaJ?si=syacyK_YRjqJajaCcXegyw" class="link-btn glass-subtle">
+                    <div class="link-icon spotify">
+                        <i class="fab fa-spotify"></i>
+                    </div>
+                    <div class="link-text">
+                        <div class="link-name">Spotify</div>
+                        <div class="link-handle">Stream all tracks</div>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
 
-    <a href="https://www.tiktok.com/@iammiralys?_r=1&_t=ZS-93qge1PdXYT" class="link-btn glass-subtle">
-        <div class="link-icon tiktok">
-            <i class="fab fa-tiktok"></i>
-        </div>
-        <div class="link-text">
-            <div class="link-name">TikTok</div>
-            <div class="link-handle">Behind the chaos</div>
-        </div>
-        <i class="fas fa-arrow-right link-arrow"></i>
-    </a>
+                <a href="https://www.tiktok.com/@iammiralys?_r=1&_t=ZS-93qge1PdXYT" class="link-btn glass-subtle">
+                    <div class="link-icon tiktok">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <div class="link-text">
+                        <div class="link-name">TikTok</div>
+                        <div class="link-handle">Behind the chaos</div>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
 
-    <a href="https://youtube.com/@iammiralys?si=DRlHI3Px75tG2MCp" class="link-btn glass-subtle">
-        <div class="link-icon youtube">
-            <i class="fab fa-youtube"></i>
-        </div>
-        <div class="link-text">
-            <div class="link-name">YouTube</div>
-            <div class="link-handle">Visuals & process</div>
-        </div>
-        <i class="fas fa-arrow-right link-arrow"></i>
-    </a>
+                <a href="https://youtube.com/@iammiralys?si=DRlHI3Px75tG2MCp" class="link-btn glass-subtle">
+                    <div class="link-icon youtube">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <div class="link-text">
+                        <div class="link-name">YouTube</div>
+                        <div class="link-handle">Visuals & process</div>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
 
-    <a href="https://soundcloud.com/iammiralys" class="link-btn glass-subtle">
-        <div class="link-icon soundcloud">
-            <i class="fab fa-soundcloud"></i>
-        </div>
-        <div class="link-text">
-            <div class="link-name">SoundCloud</div>
-            <div class="link-handle">Unreleased & demos</div>
-        </div>
-        <i class="fas fa-arrow-right link-arrow"></i>
-    </a>
-</div>
+                <a href="https://soundcloud.com/iammiralys" class="link-btn glass-subtle">
+                    <div class="link-icon soundcloud">
+                        <i class="fab fa-soundcloud"></i>
+                    </div>
+                    <div class="link-text">
+                        <div class="link-name">SoundCloud</div>
+                        <div class="link-handle">Unreleased & demos</div>
+                    </div>
+                    <i class="fas fa-arrow-right link-arrow"></i>
+                </a>
+            </div>
         </section>
 
         <!-- About Section -->
@@ -873,6 +1077,67 @@
                 <div class="stat">
                     <div class="stat-value">∞</div>
                     <div class="stat-label">Chaos</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & FAQ Section -->
+        <section class="contact-faq-section glass">
+            <p class="section-label">Contact & FAQ</p>
+
+            <!-- Contact Button -->
+            <a href="mailto:a65859560@gmail.com" class="contact-btn">
+                <span class="btn-glow"></span>
+                <i class="fas fa-envelope contact-icon"></i>
+                <span>Business / Inquiries</span>
+            </a>
+
+            <!-- FAQ Divider -->
+            <div class="faq-divider"></div>
+            <p class="faq-label">Frequently Asked</p>
+
+            <!-- FAQ Accordion -->
+            <div class="faq-accordion">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-q-text">Can I use your music for my content?</span>
+                        <div class="faq-toggle-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer-wrapper">
+                        <div class="faq-answer">
+                            Yes, just credit "Miralys" in the description.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-q-text">Where can I download the tracks?</span>
+                        <div class="faq-toggle-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer-wrapper">
+                        <div class="faq-answer">
+                            Stream on Spotify, Apple Music, or check the links above.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-q-text">Are you signed to a label?</span>
+                        <div class="faq-toggle-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer-wrapper">
+                        <div class="faq-answer">
+                            Currently independent. Open for distribution offers.
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -902,7 +1167,7 @@
         })();
 
         // === Ripple Effect on Interactive Elements ===
-        document.querySelectorAll('.link-btn, .listen-btn').forEach(el => {
+        document.querySelectorAll('.link-btn, .listen-btn, .contact-btn').forEach(el => {
             el.addEventListener('click', function(e) {
                 const ripple = document.createElement('span');
                 ripple.classList.add('ripple');
@@ -949,7 +1214,7 @@
         }, observerOptions);
 
         // Observe sections
-        document.querySelectorAll('.hero, .latest-drop, .links-section, .about-section, .footer').forEach(section => {
+        document.querySelectorAll('.hero, .latest-drop, .links-section, .about-section, .contact-faq-section, .footer').forEach(section => {
             observer.observe(section);
         });
 
@@ -972,6 +1237,22 @@
                     card.style.transition = 'transform 0.4s ease-out';
                 });
             });
+        }
+
+        // === FAQ Accordion Toggle ===
+        function toggleFaq(questionEl) {
+            const faqItem = questionEl.parentElement;
+            const isActive = faqItem.classList.contains('active');
+
+            // Close all other items
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Toggle the clicked item
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
         }
     </script>
 
