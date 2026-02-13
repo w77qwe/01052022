@@ -631,6 +631,218 @@
             margin-top: 4px;
         }
 
+        /* === KEY METRICS SECTION === */
+        .metrics-section {
+            width: 100%;
+            padding: 28px 24px;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .metrics-section .section-label {
+            margin-bottom: 24px;
+            padding-left: 0;
+            text-align: center;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .metric-card {
+            text-align: center;
+            padding: 22px 14px 20px;
+            border-radius: 18px;
+            background: linear-gradient(
+                160deg,
+                rgba(255, 255, 255, 0.07) 0%,
+                rgba(255, 255, 255, 0.02) 100%
+            );
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: rgba(99, 102, 241, 0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.12);
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: 3px 3px 0 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .metric-card.animated::before {
+            opacity: 1;
+        }
+
+        .metric-card:nth-child(1)::before {
+            background: linear-gradient(90deg, var(--blue-500), #6366f1);
+        }
+        .metric-card:nth-child(2)::before {
+            background: linear-gradient(90deg, #22c55e, #10b981);
+        }
+        .metric-card:nth-child(3)::before {
+            background: linear-gradient(90deg, #0ea5e9, var(--blue-400));
+        }
+
+        .metric-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+            font-size: 0.9rem;
+            transition: transform 0.3s ease;
+        }
+
+        .metric-card:hover .metric-icon {
+            transform: scale(1.15);
+        }
+
+        .metric-icon.views {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(99, 102, 241, 0.05));
+            color: #818cf8;
+            border: 1px solid rgba(99, 102, 241, 0.25);
+        }
+
+        .metric-icon.growth {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2), rgba(34, 197, 94, 0.05));
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.25);
+        }
+
+        .metric-icon.mobile {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(14, 165, 233, 0.05));
+            color: #0ea5e9;
+            border: 1px solid rgba(14, 165, 233, 0.25);
+        }
+
+        .metric-number {
+            font-size: clamp(1.2rem, 4.5vw, 1.8rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+            white-space: nowrap;
+        }
+
+        .metric-card.animated .metric-number {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .metric-card:nth-child(1) .metric-number {
+            background: linear-gradient(135deg, #fff, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-card:nth-child(2) .metric-number {
+            background: linear-gradient(135deg, #fff, #22c55e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-card:nth-child(3) .metric-number {
+            background: linear-gradient(135deg, #fff, #0ea5e9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-suffix {
+            font-size: clamp(0.7rem, 2.5vw, 1.1rem);
+            font-weight: 700;
+        }
+
+        .metric-prefix {
+            font-size: clamp(0.7rem, 2.5vw, 1.1rem);
+            font-weight: 700;
+        }
+
+        .metric-bar-track {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 4px;
+            margin: 12px 0 10px;
+            overflow: hidden;
+        }
+
+        .metric-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .metric-card:nth-child(1) .metric-bar-fill {
+            background: linear-gradient(90deg, var(--blue-500), #6366f1);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+        }
+
+        .metric-card:nth-child(2) .metric-bar-fill {
+            background: linear-gradient(90deg, #22c55e, #10b981);
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+        }
+
+        .metric-card:nth-child(3) .metric-bar-fill {
+            background: linear-gradient(90deg, #0ea5e9, var(--blue-400));
+            box-shadow: 0 0 10px rgba(14, 165, 233, 0.4);
+        }
+
+        .metric-card.animated .metric-bar-fill {
+            width: var(--bar-width);
+        }
+
+        .metric-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--blue-300);
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            line-height: 1.4;
+        }
+
+        @media (max-width: 380px) {
+            .metrics-grid {
+                gap: 8px;
+            }
+            .metric-card {
+                padding: 18px 10px 16px;
+            }
+            .metric-number {
+                font-size: clamp(1rem, 4vw, 1.5rem);
+            }
+            .metric-suffix,
+            .metric-prefix {
+                font-size: clamp(0.6rem, 2vw, 0.85rem);
+            }
+            .metric-label {
+                font-size: 0.55rem;
+            }
+        }
+
         /* === CONTACT & FAQ SECTION === */
         .contact-faq-section {
             width: 100%;
@@ -820,7 +1032,7 @@
         }
 
         .faq-item.active .faq-answer-wrapper {
-            max-height: 200px;
+            max-height: 250px;
         }
 
         .faq-answer {
@@ -1081,6 +1293,51 @@
             </div>
         </section>
 
+        <!-- Key Metrics Section -->
+        <section class="metrics-section glass" id="metricsSection">
+            <p class="section-label">Key Metrics</p>
+            <div class="metrics-grid">
+                <div class="metric-card" data-target="15" data-suffix="K+" data-bar="60">
+                    <div class="metric-icon views">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="metric-number">
+                        <span class="metric-count">0</span><span class="metric-suffix">K+</span>
+                    </div>
+                    <div class="metric-bar-track">
+                        <div class="metric-bar-fill" style="--bar-width: 60%"></div>
+                    </div>
+                    <div class="metric-label">Monthly Views & Reach</div>
+                </div>
+
+                <div class="metric-card" data-target="700" data-prefix="+" data-suffix="%" data-bar="85">
+                    <div class="metric-icon growth">
+                        <i class="fas fa-arrow-trend-up"></i>
+                    </div>
+                    <div class="metric-number">
+                        <span class="metric-prefix">+</span><span class="metric-count">0</span><span class="metric-suffix">%</span>
+                    </div>
+                    <div class="metric-bar-track">
+                        <div class="metric-bar-fill" style="--bar-width: 85%"></div>
+                    </div>
+                    <div class="metric-label">Monthly Growth</div>
+                </div>
+
+                <div class="metric-card" data-target="100" data-suffix="%" data-bar="100">
+                    <div class="metric-icon mobile">
+                        <i class="fas fa-mobile-screen-button"></i>
+                    </div>
+                    <div class="metric-number">
+                        <span class="metric-count">0</span><span class="metric-suffix">%</span>
+                    </div>
+                    <div class="metric-bar-track">
+                        <div class="metric-bar-fill" style="--bar-width: 100%"></div>
+                    </div>
+                    <div class="metric-label">Mobile Production Workflow</div>
+                </div>
+            </div>
+        </section>
+
         <!-- Contact & FAQ Section -->
         <section class="contact-faq-section glass">
             <p class="section-label">Contact & FAQ</p>
@@ -1136,6 +1393,20 @@
                     <div class="faq-answer-wrapper">
                         <div class="faq-answer">
                             Currently independent. Open for distribution offers.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span class="faq-q-text">How long have you been producing?</span>
+                        <div class="faq-toggle-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                    </div>
+                    <div class="faq-answer-wrapper">
+                        <div class="faq-answer">
+                            Started in 2019. After years of experimenting with mobile workflows, I launched the Miralys project in Jan 2026 to focus on my sound.
                         </div>
                     </div>
                 </div>
@@ -1214,9 +1485,54 @@
         }, observerOptions);
 
         // Observe sections
-        document.querySelectorAll('.hero, .latest-drop, .links-section, .about-section, .contact-faq-section, .footer').forEach(section => {
+        document.querySelectorAll('.hero, .latest-drop, .links-section, .about-section, .metrics-section, .contact-faq-section, .footer').forEach(section => {
             observer.observe(section);
         });
+
+        // === Metrics Count-Up Animation ===
+        let metricsAnimated = false;
+
+        function animateCountUp(el, target, duration) {
+            let start = 0;
+            const startTime = performance.now();
+
+            function update(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease out cubic
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(eased * target);
+
+                el.textContent = current.toLocaleString();
+
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            requestAnimationFrame(update);
+        }
+
+        const metricsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !metricsAnimated) {
+                    metricsAnimated = true;
+                    const cards = document.querySelectorAll('.metric-card');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('animated');
+                            const countEl = card.querySelector('.metric-count');
+                            const target = parseInt(card.dataset.target);
+                            animateCountUp(countEl, target, 1800);
+                        }, index * 200);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const metricsSection = document.getElementById('metricsSection');
+        if (metricsSection) {
+            metricsObserver.observe(metricsSection);
+        }
 
         // === Hover tilt effect for cards (desktop only) ===
         if (window.matchMedia('(hover: hover)').matches) {
