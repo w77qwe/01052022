@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MIRALYS — Mobile Producer</title>
+
+    <!-- IMAGE PRELOADING — browser starts downloading immediately -->
+    <link rel="preload" href="avatar.jpg?v=1.1" as="image">
+    <link rel="preload" href="cover.jpg?v=1.1" as="image">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -54,6 +59,15 @@
             -o-user-drag: none;
             user-drag: none;
             pointer-events: none;
+        }
+
+        /* === SMOOTH IMAGE LOADING — hidden until fully loaded === */
+        .lazy-img {
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+        .lazy-img.loaded {
+            opacity: 1;
         }
 
         /* === ANIMATED BACKGROUND === */
@@ -1318,7 +1332,7 @@
                 <div class="avatar-wrapper">
                     <div class="avatar-glow"></div>
                     <div class="avatar">
-                        <img src="avatar.jpg" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" alt="Me" draggable="false">
+                        <img src="avatar.jpg?v=1.1" class="lazy-img" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" alt="Me" draggable="false" onload="this.classList.add('loaded')">
                         <div class="avatar-inner-glow"></div>
                     </div>
                 </div>
@@ -1341,7 +1355,7 @@
                 </div>
                 <div class="drop-content">
                     <div class="drop-artwork">
-                        <img src="cover.jpg" style="width:100%; height:100%; object-fit:cover;" alt="Cover" draggable="false">
+                        <img src="cover.jpg?v=1.1" class="lazy-img" style="width:100%; height:100%; object-fit:cover;" alt="Cover" draggable="false" onload="this.classList.add('loaded')">
                     </div>
                     <div class="drop-info">
                         <div class="drop-title">CRASHED OUT!</div>
@@ -1572,6 +1586,28 @@
             }
         });
 
+        // === Smooth Image Loading — fade in only after 100% loaded ===
+        (function initLazyImages() {
+            var imgs = document.querySelectorAll('img.lazy-img');
+            imgs.forEach(function(img) {
+                // If image already cached and complete, fade in immediately
+                if (img.complete && img.naturalWidth > 0) {
+                    img.classList.add('loaded');
+                }
+                // Error handler: keep image hidden so no broken icon shows
+                img.addEventListener('error', function() {
+                    // Optionally retry once after a short delay
+                    var retried = img.getAttribute('data-retried');
+                    if (!retried) {
+                        img.setAttribute('data-retried', '1');
+                        setTimeout(function() {
+                            img.src = img.src.split('?')[0] + '?v=1.1&retry=' + Date.now();
+                        }, 2000);
+                    }
+                });
+            });
+        })();
+
         // === Floating Particles ===
         (function createParticles() {
             const container = document.getElementById('particles');
@@ -1724,4 +1760,4 @@
     </script>
 
 </body>
-    </html>
+</html>
