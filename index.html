@@ -42,7 +42,6 @@
             position: relative;
         }
 
-        /* === ANTI-THEFT IMAGE PROTECTION === */
         img {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -56,7 +55,6 @@
             pointer-events: none;
         }
 
-        /* === ANIMATED BACKGROUND === */
         .bg-canvas {
             position: fixed;
             top: 0;
@@ -122,7 +120,6 @@
             75% { transform: translate(40px, 30px) scale(1.05); }
         }
 
-        /* Subtle grid overlay */
         .bg-grid {
             position: fixed;
             top: 0;
@@ -137,7 +134,6 @@
             pointer-events: none;
         }
 
-        /* === MAIN CONTENT === */
         .main-content {
             position: relative;
             z-index: 1;
@@ -150,13 +146,11 @@
             gap: 28px;
         }
 
-        /* === COLUMN WRAPPERS — transparent on mobile === */
         .left-column,
         .right-column {
             display: contents;
         }
 
-        /* === GLASS MIXIN === */
         .glass {
             background: linear-gradient(
                 135deg,
@@ -189,7 +183,6 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.06);
         }
 
-        /* Liquid shine effect on glass */
         .glass::before,
         .glass-subtle::before {
             content: '';
@@ -214,7 +207,6 @@
             left: 100%;
         }
 
-        /* === HERO SECTION === */
         .hero {
             display: flex;
             flex-direction: column;
@@ -303,7 +295,6 @@
             line-height: 1.5;
         }
 
-        /* === STATUS BADGE === */
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -333,8 +324,7 @@
             50% { opacity: 0.5; transform: scale(0.85); }
         }
 
-        /* === LATEST DROP CARD === */
-        .latest-drop {
+        .upcoming-drop {
             width: 100%;
             position: relative;
             overflow: hidden;
@@ -411,7 +401,7 @@
             opacity: 0.7;
         }
 
-        .listen-btn {
+        .coming-soon-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -421,65 +411,28 @@
             padding: 14px 28px;
             border: none;
             border-radius: 14px;
-            background: linear-gradient(135deg, var(--blue-600), var(--blue-500));
-            color: #fff;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(59, 130, 246, 0.3));
+            color: rgba(255, 255, 255, 0.7);
             font-family: 'Inter', sans-serif;
             font-size: 0.88rem;
             font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            cursor: pointer;
+            cursor: default;
             position: relative;
             overflow: hidden;
             text-decoration: none;
-            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(99, 102, 241, 0.3);
             box-shadow: 
-                0 4px 20px rgba(59, 130, 246, 0.35),
-                0 0 40px rgba(59, 130, 246, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+                0 4px 20px rgba(99, 102, 241, 0.15),
+                0 0 40px rgba(99, 102, 241, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
-        .listen-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
+        .coming-soon-btn i {
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .listen-btn:hover {
-            transform: translateY(-2px) scale(1.02);
-            box-shadow: 
-                0 8px 30px rgba(59, 130, 246, 0.5),
-                0 0 60px rgba(59, 130, 246, 0.2),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
-        }
-
-        .listen-btn:hover::before {
-            transform: translateX(100%);
-        }
-
-        .listen-btn:active {
-            transform: translateY(0) scale(0.98);
-        }
-
-        .listen-btn .btn-glow {
-            position: absolute;
-            inset: -2px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--blue-500), #6366f1, var(--blue-400));
-            z-index: -1;
-            filter: blur(12px);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .listen-btn:hover .btn-glow {
-            opacity: 0.5;
-        }
-
-        /* === LINKS SECTION === */
         .links-section {
             width: 100%;
             animation: fadeInUp 1s ease-out 0.3s both;
@@ -592,7 +545,6 @@
             transform: translateX(3px);
         }
 
-        /* === ABOUT SECTION === */
         .about-section {
             width: 100%;
             padding: 28px 24px;
@@ -651,7 +603,6 @@
             margin-top: 4px;
         }
 
-        /* === KEY METRICS SECTION === */
         .metrics-section {
             width: 100%;
             padding: 28px 24px;
@@ -884,7 +835,6 @@
             }
         }
 
-        /* === CONTACT & FAQ SECTION === */
         .contact-faq-section {
             width: 100%;
             padding: 28px 24px;
@@ -897,7 +847,6 @@
             text-align: center;
         }
 
-        /* Contact Button */
         .contact-btn {
             display: inline-flex;
             align-items: center;
@@ -975,7 +924,6 @@
             transform: scale(1.15);
         }
 
-        /* FAQ Divider */
         .faq-divider {
             width: 50px;
             height: 1px;
@@ -994,7 +942,6 @@
             margin-bottom: 16px;
         }
 
-        /* Accordion */
         .faq-accordion {
             display: flex;
             flex-direction: column;
@@ -1088,7 +1035,6 @@
             margin-top: 0;
         }
 
-        /* === FOOTER === */
         .footer {
             text-align: center;
             padding: 20px;
@@ -1099,7 +1045,6 @@
             animation: fadeInUp 1s ease-out 0.7s both;
         }
 
-        /* === ANIMATIONS === */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -1111,7 +1056,6 @@
             }
         }
 
-        /* === FLOATING PARTICLES === */
         .particles {
             position: fixed;
             inset: 0;
@@ -1147,7 +1091,6 @@
             }
         }
 
-        /* === SCROLLBAR === */
         ::-webkit-scrollbar {
             width: 4px;
         }
@@ -1159,7 +1102,6 @@
             border-radius: 10px;
         }
 
-        /* === RESPONSIVE — MOBILE ENHANCEMENTS === */
         @media (min-width: 640px) {
             .main-content {
                 padding-top: 60px;
@@ -1183,7 +1125,6 @@
             }
         }
 
-        /* === DESKTOP 2-COLUMN LAYOUT === */
         @media (min-width: 1024px) {
             .main-content {
                 max-width: 1200px;
@@ -1242,8 +1183,7 @@
                 margin: 0 auto;
             }
 
-            /* Remove mobile fadeInUp delay on desktop for smoother feel */
-            .latest-drop,
+            .upcoming-drop,
             .links-section,
             .about-section,
             .metrics-section,
@@ -1257,7 +1197,6 @@
             }
         }
 
-        /* === Larger desktops === */
         @media (min-width: 1280px) {
             .main-content {
                 max-width: 1320px;
@@ -1292,7 +1231,6 @@
             }
         }
 
-        /* === Ripple on tap === */
         .ripple {
             position: absolute;
             border-radius: 50%;
@@ -1312,7 +1250,6 @@
 </head>
 <body>
 
-    <!-- Animated Background -->
     <div class="bg-canvas">
         <div class="bg-orb"></div>
         <div class="bg-orb"></div>
@@ -1321,15 +1258,11 @@
     </div>
     <div class="bg-grid"></div>
 
-    <!-- Floating Particles -->
     <div class="particles" id="particles"></div>
 
-    <!-- Main Content -->
     <main class="main-content">
 
-        <!-- LEFT COLUMN — Sticky Hero on Desktop -->
         <div class="left-column">
-            <!-- Hero Section -->
             <section class="hero">
                 <div class="status-badge">
                     <span class="status-dot"></span>
@@ -1339,7 +1272,6 @@
                 <div class="avatar-wrapper">
                     <div class="avatar-glow"></div>
                     <div class="avatar">
-                        <!-- DIRECT LINK AVATAR IMAGE -->
                         <img src="https://i.postimg.cc/ZqptH3RK/avatar_(1).jpg"
                              style="width:100%; height:100%; object-fit:cover; border-radius:50%;" 
                              alt="Me" draggable="false">
@@ -1354,32 +1286,29 @@
             </section>
         </div>
 
-        <!-- RIGHT COLUMN — Scrollable Content on Desktop -->
         <div class="right-column">
 
-            <!-- Latest Drop Card -->
-            <section class="latest-drop glass">
+            <!-- Upcoming Drop Card -->
+            <section class="upcoming-drop glass">
                 <div class="drop-label">
                     <i class="fas fa-circle"></i>
-                    <span>Latest Drop</span>
+                    <span>Upcoming Drop</span>
                 </div>
                 <div class="drop-content">
                     <div class="drop-artwork">
-                        <!-- DIRECT LINK COVER IMAGE -->
-                        <img src="https://i.postimg.cc/vHkNKBCY/cover.jpg"
+                        <img src="https://i.postimg.cc/2ywfs0wt/cover.jpg"
                              style="width:100%; height:100%; object-fit:cover;" 
                              alt="Cover" draggable="false">
                     </div>
                     <div class="drop-info">
-                        <div class="drop-title">CRASHED OUT!</div>
-                        <div class="drop-meta">Single · 2026 · Experimental</div>
+                        <div class="drop-title">BAD! (BBA 2) ft. JayBZY!</div>
+                        <div class="drop-meta">Single · Krushclub / Glitchcore · 2026</div>
                     </div>
                 </div>
-                <a href="https://band.link/HdDx3" class="listen-btn">
-                    <span class="btn-glow"></span>
-                    <i class="fas fa-play"></i>
-                    <span>Listen Now</span>
-                </a>
+                <div class="coming-soon-btn">
+                    <i class="fas fa-clock"></i>
+                    <span>Coming Soon</span>
+                </div>
             </section>
 
             <!-- Links Section -->
@@ -1459,13 +1388,13 @@
             <section class="metrics-section glass" id="metricsSection">
                 <p class="section-label">Key Metrics</p>
                 <div class="metrics-grid">
-                    <!-- Card 1: Total Views — 750K+ -->
-                    <div class="metric-card" data-target="750" data-suffix="K+" data-bar="98">
+                    <!-- Card 1: Total Views — 1.4M+ -->
+                    <div class="metric-card" data-target="1.4" data-decimals="1" data-suffix="M+" data-bar="98">
                         <div class="metric-icon views">
                             <i class="fas fa-eye"></i>
                         </div>
                         <div class="metric-number">
-                            <span class="metric-count">0</span><span class="metric-suffix">K+</span>
+                            <span class="metric-count">0</span><span class="metric-suffix">M+</span>
                         </div>
                         <div class="metric-bar-track">
                             <div class="metric-bar-fill" style="--bar-width: 98%"></div>
@@ -1487,8 +1416,8 @@
                         <div class="metric-label">High Engagement Rate</div>
                     </div>
 
-                    <!-- Card 3: Total Likes — 85K+ -->
-                    <div class="metric-card" data-target="85" data-suffix="K+" data-bar="95">
+                    <!-- Card 3: Total Likes — 150K+ -->
+                    <div class="metric-card" data-target="150" data-suffix="K+" data-bar="95">
                         <div class="metric-icon likes">
                             <i class="fas fa-heart"></i>
                         </div>
@@ -1521,18 +1450,15 @@
             <section class="contact-faq-section glass">
                 <p class="section-label">Contact & FAQ</p>
 
-                <!-- Contact Button -->
                 <a href="mailto:miralysscarlet@gmail.com" class="contact-btn">
                     <span class="btn-glow"></span>
                     <i class="fas fa-envelope contact-icon"></i>
                     <span>Business / Inquiries</span>
                 </a>
 
-                <!-- FAQ Divider -->
                 <div class="faq-divider"></div>
                 <p class="faq-label">Frequently Asked</p>
 
-                <!-- FAQ Accordion -->
                 <div class="faq-accordion">
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
@@ -1592,31 +1518,27 @@
                 </div>
             </section>
 
-            <!-- Footer -->
             <footer class="footer">
                 © 2026 Miralys. All rights reserved.
             </footer>
 
-        </div><!-- end .right-column -->
+        </div>
 
     </main>
 
     <script>
-        // === Anti-Theft: Block right-click on images ===
         document.addEventListener('contextmenu', function(e) {
             if (e.target.tagName === 'IMG') {
                 e.preventDefault();
             }
         });
 
-        // === Anti-Theft: Block drag on images ===
         document.addEventListener('dragstart', function(e) {
             if (e.target.tagName === 'IMG') {
                 e.preventDefault();
             }
         });
 
-        // === Floating Particles ===
         (function createParticles() {
             const container = document.getElementById('particles');
             const count = 20;
@@ -1632,8 +1554,7 @@
             }
         })();
 
-        // === Ripple Effect on Interactive Elements ===
-        document.querySelectorAll('.link-btn, .listen-btn, .contact-btn').forEach(el => {
+        document.querySelectorAll('.link-btn, .contact-btn').forEach(el => {
             el.addEventListener('click', function(e) {
                 const ripple = document.createElement('span');
                 ripple.classList.add('ripple');
@@ -1647,7 +1568,6 @@
             });
         });
 
-        // === Subtle Parallax on Scroll ===
         let ticking = false;
         window.addEventListener('scroll', () => {
             if (!ticking) {
@@ -1664,7 +1584,6 @@
             }
         });
 
-        // === Intersection Observer for Scroll Animations ===
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -30px 0px'
@@ -1679,22 +1598,18 @@
             });
         }, observerOptions);
 
-        // Observe sections
-        document.querySelectorAll('.hero, .latest-drop, .links-section, .about-section, .metrics-section, .contact-faq-section, .footer').forEach(section => {
+        document.querySelectorAll('.hero, .upcoming-drop, .links-section, .about-section, .metrics-section, .contact-faq-section, .footer').forEach(section => {
             observer.observe(section);
         });
 
-        // === Metrics Count-Up Animation ===
         let metricsAnimated = false;
 
         function animateCountUp(el, target, duration, decimals) {
-            let start = 0;
             const startTime = performance.now();
 
             function update(currentTime) {
                 const elapsed = currentTime - startTime;
                 const progress = Math.min(elapsed / duration, 1);
-                // Ease out cubic
                 const eased = 1 - Math.pow(1 - progress, 3);
                 const current = eased * target;
 
@@ -1734,7 +1649,6 @@
             metricsObserver.observe(metricsSection);
         }
 
-        // === Hover tilt effect for cards (desktop only) ===
         if (window.matchMedia('(hover: hover)').matches) {
             document.querySelectorAll('.glass').forEach(card => {
                 card.addEventListener('mousemove', (e) => {
@@ -1755,17 +1669,14 @@
             });
         }
 
-        // === FAQ Accordion Toggle ===
         function toggleFaq(questionEl) {
             const faqItem = questionEl.parentElement;
             const isActive = faqItem.classList.contains('active');
 
-            // Close all other items
             document.querySelectorAll('.faq-item').forEach(item => {
                 item.classList.remove('active');
             });
 
-            // Toggle the clicked item
             if (!isActive) {
                 faqItem.classList.add('active');
             }
