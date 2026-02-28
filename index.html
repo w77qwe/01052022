@@ -401,36 +401,134 @@
             opacity: 0.7;
         }
 
-        .coming-soon-btn {
+        /* Release date badge */
+        .release-date-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: linear-gradient(
+                135deg,
+                rgba(99, 102, 241, 0.12) 0%,
+                rgba(59, 130, 246, 0.08) 100%
+            );
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            width: 100%;
+        }
+
+        .release-date-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(99, 102, 241, 0.08));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            color: var(--blue-300);
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .release-date-text {
+            flex: 1;
+        }
+
+        .release-date-label {
+            font-size: 0.6rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--blue-400);
+            opacity: 0.7;
+            line-height: 1;
+            margin-bottom: 3px;
+        }
+
+        .release-date-value {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.3px;
+        }
+
+        /* Pre-save button */
+        .presave-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin-top: 20px;
+            margin-top: 14px;
             width: 100%;
             padding: 14px 28px;
             border: none;
             border-radius: 14px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(59, 130, 246, 0.3));
-            color: rgba(255, 255, 255, 0.7);
+            background: linear-gradient(135deg, var(--blue-600), var(--blue-500));
+            color: #fff;
             font-family: 'Inter', sans-serif;
             font-size: 0.88rem;
             font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            cursor: default;
+            cursor: pointer;
             position: relative;
             overflow: hidden;
             text-decoration: none;
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
             box-shadow: 
-                0 4px 20px rgba(99, 102, 241, 0.15),
-                0 0 40px rgba(99, 102, 241, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+                0 4px 20px rgba(59, 130, 246, 0.35),
+                0 0 40px rgba(59, 130, 246, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
         }
 
-        .coming-soon-btn i {
-            animation: pulse 2s ease-in-out infinite;
+        .presave-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .presave-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 
+                0 8px 30px rgba(59, 130, 246, 0.5),
+                0 0 60px rgba(59, 130, 246, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .presave-btn:hover::before {
+            transform: translateX(100%);
+        }
+
+        .presave-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .presave-btn .btn-glow {
+            position: absolute;
+            inset: -2px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--blue-500), #6366f1, var(--blue-400));
+            z-index: -1;
+            filter: blur(12px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .presave-btn:hover .btn-glow {
+            opacity: 0.5;
+        }
+
+        .presave-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .presave-btn:hover i {
+            transform: scale(1.15);
         }
 
         .links-section {
@@ -1305,10 +1403,24 @@
                         <div class="drop-meta">Single · Krushclub / Glitchcore · 2026</div>
                     </div>
                 </div>
-                <div class="coming-soon-btn">
-                    <i class="fas fa-clock"></i>
-                    <span>Coming Soon</span>
+
+                <!-- Release Date Badge -->
+                <div class="release-date-badge">
+                    <div class="release-date-icon">
+                        <i class="fas fa-calendar-day"></i>
+                    </div>
+                    <div class="release-date-text">
+                        <div class="release-date-label">Release Date</div>
+                        <div class="release-date-value">March 6, 2026</div>
+                    </div>
                 </div>
+
+                <!-- Pre-save Button -->
+                <a href="https://band.link/kxEKb" class="presave-btn" target="_blank">
+                    <span class="btn-glow"></span>
+                    <i class="fas fa-bookmark"></i>
+                    <span>Pre-save Now</span>
+                </a>
             </section>
 
             <!-- Links Section -->
@@ -1384,11 +1496,10 @@
                 </div>
             </section>
 
-            <!-- Key Metrics Section (UPDATED) -->
+            <!-- Key Metrics Section -->
             <section class="metrics-section glass" id="metricsSection">
                 <p class="section-label">Key Metrics</p>
                 <div class="metrics-grid">
-                    <!-- Card 1: Total Views — 1.4M+ -->
                     <div class="metric-card" data-target="1.4" data-decimals="1" data-suffix="M+" data-bar="98">
                         <div class="metric-icon views">
                             <i class="fas fa-eye"></i>
@@ -1402,7 +1513,6 @@
                         <div class="metric-label">Total Views</div>
                     </div>
 
-                    <!-- Card 2: High Engagement Rate — 12% -->
                     <div class="metric-card" data-target="12" data-suffix="%" data-bar="100">
                         <div class="metric-icon growth">
                             <i class="fas fa-bolt"></i>
@@ -1416,7 +1526,6 @@
                         <div class="metric-label">High Engagement Rate</div>
                     </div>
 
-                    <!-- Card 3: Total Likes — 150K+ -->
                     <div class="metric-card" data-target="150" data-suffix="K+" data-bar="95">
                         <div class="metric-icon likes">
                             <i class="fas fa-heart"></i>
@@ -1430,7 +1539,6 @@
                         <div class="metric-label">Total Likes</div>
                     </div>
 
-                    <!-- Card 4: Mobile Production Only — 100% -->
                     <div class="metric-card" data-target="100" data-suffix="%" data-bar="100">
                         <div class="metric-icon mobile">
                             <i class="fas fa-mobile-screen-button"></i>
@@ -1554,7 +1662,7 @@
             }
         })();
 
-        document.querySelectorAll('.link-btn, .contact-btn').forEach(el => {
+        document.querySelectorAll('.link-btn, .contact-btn, .presave-btn').forEach(el => {
             el.addEventListener('click', function(e) {
                 const ripple = document.createElement('span');
                 ripple.classList.add('ripple');
