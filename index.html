@@ -345,8 +345,7 @@
         }
 
         .drop-label i {
-            font-size: 0.6rem;
-            animation: pulse 1.5s ease-in-out infinite;
+            font-size: 0.7rem;
         }
 
         .drop-content {
@@ -418,6 +417,16 @@
             width: 100%;
         }
 
+        /* OUT NOW green variant */
+        .release-date-badge.out-now {
+            background: linear-gradient(
+                135deg,
+                rgba(34, 197, 94, 0.12) 0%,
+                rgba(34, 197, 94, 0.05) 100%
+            );
+            border: 1px solid rgba(34, 197, 94, 0.25);
+        }
+
         .release-date-icon {
             width: 32px;
             height: 32px;
@@ -430,6 +439,12 @@
             color: var(--blue-300);
             font-size: 0.8rem;
             flex-shrink: 0;
+        }
+
+        .release-date-badge.out-now .release-date-icon {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.25), rgba(34, 197, 94, 0.08));
+            border: 1px solid rgba(34, 197, 94, 0.35);
+            color: #22c55e;
         }
 
         .release-date-text {
@@ -447,6 +462,10 @@
             margin-bottom: 3px;
         }
 
+        .release-date-badge.out-now .release-date-label {
+            color: #4ade80;
+        }
+
         .release-date-value {
             font-size: 0.95rem;
             font-weight: 700;
@@ -454,7 +473,12 @@
             letter-spacing: 0.3px;
         }
 
-        /* Pre-save button */
+        .release-date-badge.out-now .release-date-value {
+            color: #22c55e;
+            letter-spacing: 2px;
+        }
+
+        /* Pre-save / Listen button */
         .presave-btn {
             display: inline-flex;
             align-items: center;
@@ -1121,6 +1145,16 @@
             max-height: 250px;
         }
 
+        /* Longer text answers */
+        .faq-item.active .faq-answer-wrapper.faq-answer-long {
+            max-height: 450px;
+        }
+
+        /* Answers with images */
+        .faq-item.active .faq-answer-wrapper.faq-answer-lg {
+            max-height: 650px;
+        }
+
         .faq-answer {
             padding: 0 20px 18px;
             font-size: 0.82rem;
@@ -1131,6 +1165,34 @@
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             padding-top: 14px;
             margin-top: 0;
+        }
+
+        /* Alt cover image inside FAQ */
+        .faq-cover-link {
+            display: block;
+            margin-top: 14px;
+            pointer-events: auto;
+            border-radius: 14px;
+            overflow: hidden;
+            max-width: 280px;
+        }
+
+        .faq-cover-link img {
+            width: 100%;
+            height: auto;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            pointer-events: auto;
+            user-select: auto;
+            -webkit-user-select: auto;
+            -webkit-user-drag: auto;
+            display: block;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .faq-cover-link:hover img {
+            border-color: rgba(99, 102, 241, 0.4);
+            transform: scale(1.02);
         }
 
         .footer {
@@ -1386,11 +1448,11 @@
 
         <div class="right-column">
 
-            <!-- Upcoming Drop Card -->
+            <!-- Latest Drop Card -->
             <section class="upcoming-drop glass">
                 <div class="drop-label">
-                    <i class="fas fa-circle"></i>
-                    <span>Upcoming Drop</span>
+                    <i class="fas fa-fire"></i>
+                    <span>Latest Drop</span>
                 </div>
                 <div class="drop-content">
                     <div class="drop-artwork">
@@ -1404,23 +1466,58 @@
                     </div>
                 </div>
 
-                <!-- Release Date Badge -->
-                <div class="release-date-badge">
+                <!-- OUT NOW Badge -->
+                <div class="release-date-badge out-now">
                     <div class="release-date-icon">
-                        <i class="fas fa-calendar-day"></i>
+                        <i class="fas fa-check-circle"></i>
                     </div>
                     <div class="release-date-text">
-                        <div class="release-date-label">Release Date</div>
-                        <div class="release-date-value">March 6, 2026</div>
+                        <div class="release-date-label">Status</div>
+                        <div class="release-date-value">OUT NOW!</div>
                     </div>
                 </div>
 
-                <!-- Pre-save Button -->
+                <!-- Listen Now Button -->
                 <a href="https://band.link/kxEKb" class="presave-btn" target="_blank">
                     <span class="btn-glow"></span>
-                    <i class="fas fa-bookmark"></i>
-                    <span>Pre-save Now</span>
+                    <i class="fas fa-play"></i>
+                    <span>Listen Now</span>
                 </a>
+
+                <!-- Drop Details FAQ -->
+                <div class="faq-divider" style="margin-top: 22px;"></div>
+                <div class="faq-accordion">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span class="faq-q-text">Creation Story</span>
+                            <div class="faq-toggle-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer-wrapper faq-answer-long">
+                            <div class="faq-answer">
+                                The beat was written on the toilet in just 10 minutes. It was originally planned as a super fast beat for Geometry Dash, but something entirely different came out. A snippet with the track collected 1.5M+ views on TikTok within two weeks after the beat dropped on streaming platforms. Later, artist «JayBZY!» hopped on the beat, and the simple instrumental got a second life as a full vocal version.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span class="faq-q-text">Is there an alternative cover?</span>
+                            <div class="faq-toggle-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer-wrapper faq-answer-lg">
+                            <div class="faq-answer">
+                                Of course! Here's an alternative version of the cover featuring the main heroine of the Bayonetta game series.
+                                <a href="https://postimg.cc/dkT1ddDK" target="_blank" class="faq-cover-link">
+                                    <img src="https://i.postimg.cc/mDmFvysh/alt-cover.png" alt="Alternative Cover">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- Links Section -->
@@ -1779,9 +1876,11 @@
 
         function toggleFaq(questionEl) {
             const faqItem = questionEl.parentElement;
+            const accordion = faqItem.parentElement;
             const isActive = faqItem.classList.contains('active');
 
-            document.querySelectorAll('.faq-item').forEach(item => {
+            // Only close items within the same accordion group
+            accordion.querySelectorAll('.faq-item').forEach(item => {
                 item.classList.remove('active');
             });
 
