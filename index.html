@@ -1182,10 +1182,10 @@
             height: auto;
             border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.12);
-            pointer-events: auto;
-            user-select: auto;
-            -webkit-user-select: auto;
-            -webkit-user-drag: auto;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-user-drag: none;
             display: block;
             transition: border-color 0.3s ease, transform 0.3s ease;
         }
@@ -1511,9 +1511,9 @@
                         <div class="faq-answer-wrapper faq-answer-lg">
                             <div class="faq-answer">
                                 Of course! Here's an alternative version of the cover featuring the main heroine of the Bayonetta game series.
-                                <a href="https://postimg.cc/dkT1ddDK" target="_blank" class="faq-cover-link">
+                                <div class="faq-cover-link">
                                     <img src="https://i.postimg.cc/mDmFvysh/alt-cover.png" alt="Alternative Cover">
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1665,20 +1665,6 @@
                 <p class="faq-label">Frequently Asked</p>
 
                 <div class="faq-accordion">
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleFaq(this)">
-                            <span class="faq-q-text">Can I use your music for my content?</span>
-                            <div class="faq-toggle-icon">
-                                <i class="fas fa-plus"></i>
-                            </div>
-                        </div>
-                        <div class="faq-answer-wrapper">
-                            <div class="faq-answer">
-                                Yes, just credit "Miralys" in the description.
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
                             <span class="faq-q-text">Where can I download the tracks?</span>
