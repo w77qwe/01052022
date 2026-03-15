@@ -3,7 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Основные SEO теги -->
     <title>MIRALYS — Mobile Producer</title>
+    <meta name="description" content="MIRALYS — Mobile Producer. Experimental music, 100% created on smartphone. Listen to the latest drops and connect.">
+    <!-- Теги для красивого превью в соцсетях (Open Graph) -->
+    <meta property="og:title" content="MIRALYS — Mobile Producer">
+    <meta property="og:description" content="Experimental music, 100% created on smartphone. No studio, just mobile and pure chaos.">
+    <meta property="og:image" content="https://i.postimg.cc/ZqptH3RK/avatar_(1).jpg">
+    <meta property="og:type" content="website">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -261,6 +269,13 @@
             overflow: hidden;
         }
 
+        /* Единый стиль для твоих картинок-обложек и аватара */
+        .avatar img, .drop-artwork img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         .avatar-inner-glow {
             position: absolute;
             inset: 0;
@@ -368,17 +383,10 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .drop-artwork::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 30% 25%, rgba(96, 165, 250, 0.3), transparent 60%);
-        }
-
-        .drop-artwork i {
-            font-size: 28px;
-            color: var(--blue-300);
-            z-index: 1;
+        /* Эффект свечения поверх картинки удален, чтобы обложка отображалась в оригинальных цветах */
+        
+        .drop-artwork img {
+            border-radius: inherit; /* Чтобы картинка идеально вписывалась в скругления */
         }
 
         .drop-info {
@@ -621,9 +629,9 @@
         }
 
         .link-icon.tiktok {
-            background: linear-gradient(135deg, rgba(255, 0, 80, 0.15), rgba(0, 242, 234, 0.1));
-            color: #ff0050;
-            border: 1px solid rgba(255, 0, 80, 0.2);
+            background: linear-gradient(135deg, rgba(255, 0, 80, 0.2), rgba(0, 242, 234, 0.15));
+            color: #ffffff; /* Чистый белый цвет, чтобы читалось идеально */
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .link-icon.youtube {
@@ -636,6 +644,43 @@
             background: linear-gradient(135deg, rgba(255, 136, 0, 0.2), rgba(255, 136, 0, 0.05));
             color: #ff8800;
             border: 1px solid rgba(255, 136, 0, 0.2);
+        }
+
+        .link-icon.instagram {
+            background: linear-gradient(135deg, rgba(225, 48, 108, 0.2), rgba(253, 29, 29, 0.05));
+            color: #e1306c;
+            border: 1px solid rgba(225, 48, 108, 0.2);
+        }
+
+        .link-icon.discord {
+            background: linear-gradient(135deg, rgba(153, 163, 175, 0.2), rgba(153, 163, 175, 0.05));
+            color: #9ca3af;
+            border: 1px solid rgba(153, 163, 175, 0.2);
+        }
+
+        .discord-btn {
+            cursor: pointer;
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .discord-btn:hover {
+            filter: grayscale(50%);
+            opacity: 0.9;
+        }
+
+        .form-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 14px;
+            margin-top: -5px;
+        }
+
+        .form-wrapper.active {
+            max-height: 800px; /* Увеличили лимит, чтобы высокая форма на мобилках не обрезалась */
+            margin-bottom: 10px;
         }
 
         .link-text {
@@ -1264,6 +1309,7 @@
 
         @media (min-width: 640px) {
             .main-content {
+                max-width: 600px; /* Даем больше ширины контенту на планшетах */
                 padding-top: 60px;
                 gap: 36px;
             }
@@ -1432,9 +1478,8 @@
                 <div class="avatar-wrapper">
                     <div class="avatar-glow"></div>
                     <div class="avatar">
-                        <img src="https://i.postimg.cc/ZqptH3RK/avatar_(1).jpg"
-                             style="width:100%; height:100%; object-fit:cover; border-radius:50%;" 
-                             alt="Me" draggable="false">
+                        <img src="https://i.postimg.cc/ZqptH3RK/avatar_(1).jpg" 
+                             alt="MIRALYS - Mobile Producer Avatar" draggable="false">
                         <div class="avatar-inner-glow"></div>
                     </div>
                 </div>
@@ -1456,9 +1501,8 @@
                 </div>
                 <div class="drop-content">
                     <div class="drop-artwork">
-                        <img src="https://i.postimg.cc/2ywfs0wt/cover.jpg"
-                             style="width:100%; height:100%; object-fit:cover;" 
-                             alt="Cover" draggable="false">
+                        <img src="https://i.postimg.cc/2ywfs0wt/cover.jpg" 
+                             alt="BAD! Track Cover by MIRALYS" draggable="false">
                     </div>
                     <div class="drop-info">
                         <div class="drop-title">BAD! (BBA 2) ft. JayBZY!</div>
@@ -1567,6 +1611,37 @@
                         </div>
                         <i class="fas fa-arrow-right link-arrow"></i>
                     </a>
+
+                    <!-- Новая кнопка Instagram -->
+                    <a href="https://www.instagram.com/miralyswav" class="link-btn glass-subtle" target="_blank">
+                        <div class="link-icon instagram">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <div class="link-text">
+                            <div class="link-name">Instagram</div>
+                            <div class="link-handle">Photos & updates</div>
+                        </div>
+                        <i class="fas fa-arrow-right link-arrow"></i>
+                    </a>
+
+                    <!-- Новая кнопка Discord (серая) -->
+                    <div class="link-btn glass-subtle discord-btn" onclick="toggleDiscordForm(this)">
+                        <div class="link-icon discord">
+                            <i class="fab fa-discord"></i>
+                        </div>
+                        <div class="link-text">
+                            <div class="link-name">Discord</div>
+                            <div class="link-handle">Should I create one?</div>
+                        </div>
+                        <i class="fas fa-chevron-down link-arrow"></i>
+                    </div>
+                    
+                    <!-- Выпадающая Google Форма -->
+                    <div class="form-wrapper" id="discordForm">
+                        <!-- Добавили &hl=en в ссылку и заменили текст-заглушку -->
+                        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd4FBiqVXmEMqQCoRK0gYD2l8k8P7uWeTwykrJNC7VeyNAwZg/viewform?embedded=true&hl=en" style="width: 100%; height: 750px; border: none;" marginheight="0" marginwidth="0">Loading…</iframe>
+                    </div>
+
                 </div>
             </section>
 
@@ -1597,7 +1672,7 @@
             <section class="metrics-section glass" id="metricsSection">
                 <p class="section-label">Key Metrics</p>
                 <div class="metrics-grid">
-                    <div class="metric-card" data-target="1.4" data-decimals="1" data-suffix="M+" data-bar="98">
+                    <div class="metric-card" data-target="2.4" data-decimals="1" data-suffix="M+" data-bar="98">
                         <div class="metric-icon views">
                             <i class="fas fa-eye"></i>
                         </div>
@@ -1623,7 +1698,7 @@
                         <div class="metric-label">High Engagement Rate</div>
                     </div>
 
-                    <div class="metric-card" data-target="150" data-suffix="K+" data-bar="95">
+                    <div class="metric-card" data-target="275" data-suffix="K+" data-bar="95">
                         <div class="metric-icon likes">
                             <i class="fas fa-heart"></i>
                         </div>
@@ -1631,7 +1706,7 @@
                             <span class="metric-count">0</span><span class="metric-suffix">K+</span>
                         </div>
                         <div class="metric-bar-track">
-                            <div class="metric-bar-fill" style="--bar-width: 95%"></div>
+                            <div class="metric-bar-fill" style="--bar-width: 99%"></div>
                         </div>
                         <div class="metric-label">Total Likes</div>
                     </div>
@@ -1665,6 +1740,24 @@
                 <p class="faq-label">Frequently Asked</p>
 
                 <div class="faq-accordion">
+                    <!-- ВОПРОС 1: LORE (Теперь на первом месте!) -->
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <span class="faq-q-text">Who are you?</span>
+                            <div class="faq-toggle-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+                        <div class="faq-answer-wrapper faq-answer-lg">
+                            <div class="faq-answer">
+                                I’m Miralys (aka Miralys Scarlet). I’ve been 100% self-producing my shit since 2019. Everything you hear is made entirely on a smartphone. Zero PC projects. Just my thumbs and a screen.<br><br>
+                                Over the last 7 years, I’ve built a vault of 2,000+ demos, experimenting with everything from mainstream to the rawest underground. Back in the day, I dropped under different aliases and made meme tracks with my classmates—we had our school going crazy, but that vault stays locked (too local for y'all :)). I grew up on the golden era of internet memes (2000s - 2021). Most of the shit trending today is pure brainrot and degradation, so I decided to make my own wave.<br><br>
+                                I dropped my first official track as "Miralys" in October 2025, but the Miralys Scarlet project officially launched in January 2026 when I started taking socials seriously. Now? I make experimental music, break down my mobile projects on TikTok, post memes, and drop the lore behind the chaos.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ВОПРОС 2: ГДЕ СКАЧАТЬ -->
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
                             <span class="faq-q-text">Where can I download the tracks?</span>
@@ -1679,6 +1772,7 @@
                         </div>
                     </div>
 
+                    <!-- ВОПРОС 3: ЛЕЙБЛ -->
                     <div class="faq-item">
                         <div class="faq-question" onclick="toggleFaq(this)">
                             <span class="faq-q-text">Are you signed to a label?</span>
@@ -1692,27 +1786,12 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question" onclick="toggleFaq(this)">
-                            <span class="faq-q-text">How long have you been producing?</span>
-                            <div class="faq-toggle-icon">
-                                <i class="fas fa-plus"></i>
-                            </div>
-                        </div>
-                        <div class="faq-answer-wrapper">
-                            <div class="faq-answer">
-                                Started in 2019. After years of experimenting with mobile workflows, I launched the Miralys project in Jan 2026 to focus on my sound.
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
 
             <footer class="footer">
-                © 2026 Miralys. All rights reserved.
+                © <span id="current-year">2026</span> Miralys. All rights reserved.
             </footer>
-
         </div>
 
     </main>
@@ -1842,22 +1921,50 @@
 
         if (window.matchMedia('(hover: hover)').matches) {
             document.querySelectorAll('.glass').forEach(card => {
+                let ticking3D = false;
+                
                 card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    const rotateX = ((y - centerY) / centerY) * -4;
-                    const rotateY = ((x - centerX) / centerX) * 4;
-                    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
-                    card.style.transition = 'transform 0.1s ease-out';
+                    if (!ticking3D) {
+                        window.requestAnimationFrame(() => {
+                            const rect = card.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            const centerX = rect.width / 2;
+                            const centerY = rect.height / 2;
+                            const rotateX = ((y - centerY) / centerY) * -4;
+                            const rotateY = ((x - centerX) / centerX) * 4;
+                            card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.01)`;
+                            card.style.transition = 'transform 0.1s ease-out';
+                            ticking3D = false;
+                        });
+                        ticking3D = true;
+                    }
                 });
+                
                 card.addEventListener('mouseleave', () => {
                     card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
                     card.style.transition = 'transform 0.4s ease-out';
                 });
             });
+        }
+
+        function toggleDiscordForm(btnEl) {
+            const formWrapper = document.getElementById('discordForm');
+            const icon = btnEl.querySelector('.fa-chevron-down, .fa-chevron-up');
+            
+            if (formWrapper.classList.contains('active')) {
+                formWrapper.classList.remove('active');
+                if (icon) {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            } else {
+                formWrapper.classList.add('active');
+                if (icon) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            }
         }
 
         function toggleFaq(questionEl) {
@@ -1874,6 +1981,9 @@
                 faqItem.classList.add('active');
             }
         }
+
+        // Автоматическое обновление года
+        document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>
 
 </body>
